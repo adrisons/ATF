@@ -1,0 +1,4 @@
+ATF
+===
+
+Fault tolerant architectures

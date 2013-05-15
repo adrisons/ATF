@@ -1,9 +1,10 @@
 import os
 import sys
 import time
-from checksum import checksum_dp
+from checksum import check_cs
+from berger import check_ber
 #options contains an (code number, code name, code program) array
-options = [(1,'checksum',checksum_dp)]
+options = [(1,'Checksum',check_cs),(2,'Berger',check_ber)]
 
 def select_op(op):
 	for o in options:

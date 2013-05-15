@@ -43,3 +43,16 @@ def checksum_dp(code):
 	sum2 = binary_addition(c,d)
 	sumTot = binary_addition(sum1,sum2)
 	return sumTot
+
+
+def check_cs(c1,c2):
+    i1 = checksum_dp(c1)
+    print ' | sent:' + i1 + ' '*(28-len(i1)) + '|'
+    i2 = checksum_dp(c2)
+    print ' | recv:' + i2 + ' '*(28-len(i2)) + '|'
+    if(i1==i2):
+        return True
+    else:
+        return False
+
+

@@ -1,0 +1,11 @@
+He decidido implementar el checkpoint mediante dos ficheros:
+\begin{description}
+	\item [\texttt{result.csv}] Que almacena cada posición de la matriz resultado en formato csv
+	\item [\texttt{checkPoint.txt}] Que va almacenando la última posición almacenada en \texttt{result.csv}
+\end{description}
+
+Por cada posición que se calcula de la matriz resultado, su valor se almacena en el fichero resultado y su posición en el fichero de checkpoint.
+
+El fichero de checkpoint sólo existe mientras el calculo de la matriz resultado no se ha realizado por completo y, además, almacena el path de las dos matrices que se están multiplicando, para controlar que sólo se realice la recuperación si las matrices a multiplicar son las mismas.
+
+Si la ejecución termina inesperadamente, cuando se intenta ejecutar el programa con las mismas matrices, se restaura el estado del sistema utilizando el checkpoint y se continúa ejecutando.

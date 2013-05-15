@@ -1,0 +1,4 @@
+Durante la ejecución del programa se pueden dar errores relacionados con los ficheros \texttt{result} y \texttt{checkpoint}.
+Por ejemplo, si tratamos con matrices de gran volumen, podría pasar que se guardara el estado en \texttt{checkpoint} pero que un error externo interrumpiese mientras se guarda en el fichero \texttt{result} y tener valores incorrectos.\\
+Con el objetivo de reducir la posibilidad de este error es por lo que se guarda cada posición calculada de la matriz resultado en \texttt{result}, en vez de almacenar toda la matriz resultado en cada iteración. De este modo las escrituras son verdaderamente rápidas, ya que sólo almacenan un número en cada iteración.
+Para añadir más tolerancia a fallos, se comprueba además la matriz resultado almacenada hasta el momento. Si el nº de filas y de columnas coinciden con los datos del checkpoint, se continúa como antes, si no, se continúa en donde se ha quedado la matriz resultado. 

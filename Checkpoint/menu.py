@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 options = [1, 2]
 
@@ -65,4 +66,20 @@ def sel_matrix():
 def the_end():
 	print " |             THE END              |"
 	print " |__________________________________|"
+
+def print_error_dimensions():
+	print " | Error: Cannot multiply the two   |"
+	print " | matrixes. Incorrect dimensions.  |"
+	print " | Try again...                     |"
+	
+
+def wait():
+
+	print ' | Sleep time!                      |'
+	time.sleep(0.5)
+	print ' |                    zZzZ...       |'
+	time.sleep(1)
+	print ' |       zZzZ...                    |'
+	time.sleep(1)
+	print ' | I\'m back!                        |'
 

@@ -3,15 +3,14 @@ from menu import sel_code
 from menu import csv_to_matrix
 from menu import the_end
 
-emisor = 'em_ber.csv'
-receptor = 'rec_ber_ok.csv'
+emisor = 'Emisor.csv'
+receptor = 'Receptor.csv'
 
 print_header()
 checker = sel_code()
 
 code_sent = csv_to_matrix(emisor)[1]
 code_recv = csv_to_matrix(receptor)[1]
-
 
 if checker(code_sent,code_recv):
 	print ' |        > Correct <' + ' '*15 +'|'

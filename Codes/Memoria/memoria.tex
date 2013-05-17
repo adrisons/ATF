@@ -66,25 +66,58 @@
 		Pereira Guerra, Adrián \texttt{<adrian.pereira@udc.es>}\\
 		https://github.com/adrisons/ATF
 		\end{center}
-		\vspace{2cm}
+		\vspace{1cm}
 
 %	\end{titlepage}
 % Índices
 
-%\tableofcontents
-%\vspace{3cm}
+\tableofcontents
+\vspace{3cm}
 %\clearpage
 
 
 %\section{Introducción}
 %	\input{./introduccion}
+\section{Checksum de doble precisión}
+	Este código añade poca redundancia comparado con otros. Para transmitir una matriz de $i * j$ elementos sólo añadimos $2 * j$ para el checksum. Controlando el número el número de filas a transmitir, puede ser un código muy eficiente, además es muy sencillo de implementar. El precio que hay que pagar por esta sencillez es que se necesita hardware adicional.
+	Detecta errores simples y múltiples, por lo tanto tiene alta cobertura. Se ve su funcionamiento en la Figura \ref{ej_cs}
+	\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{res/ejemplo_cs}
+	\label{ej_cs}
+	\caption{Ejemplo checksum}
+	\end{figure}
 
 \section{Berger}
+redundancia que introduce el código y cobertura del mismo ante diferente tipo de errores
+
+	La redundancia que añade Berger se vuelve insignificante cuando tratamos con cadenas de datos largas (véase Figura~\ref{t_berger}), sin embargo, para cadenas cortas inserta demasiada. Además es un código separable, lo que hace muy sencilla su decodificación.
+	Lo que se hace para comprobar que la transmisión es correcta es realizar la suma y ver que está bien. Al tratarse de datos binarios, puede darse el caso en el que cambien dos datos y la suma siga dando lo mismo, por lo tanto no se detectaría el fallo. Se muestra un ejemplo en la Figura~\ref{ej_berger}.
+	\begin{figure}[h!]
+		\centering
+		\begin{tabular}{| c | c | c |}
+				
+			\hline
+			
+			Código enviado & $\rightarrow$ & Código recibido \\
+			\hline
+			\rowcolor{LightCyan}
+			1001 101 & $\rightarrow$ & 1010 101 \\ 
+			\hline
+				
+		\end{tabular}
+
+		\label{ej_berger}
+		\caption{Ejemplo de fallo}
+	\end{figure}
+	Fallan dos bits pero, como la suma da lo mismo, no se detectaría el fallo.
+	\subsection{\emph{Una vez codificado, ¿cuántos bits tiene el código original?}}
 	Sabemos que el número de bits que añade Berger es $k = [log_2(I+1)]$ siendo k la longitud de bits añadidos e I la longitud del dato original no codificado. Sin embargo, al decodificar, sabemos que el código codificado tiene longitud $I + k$, es decir, $I + log_2(I+1)$ y, de esta fórmula no se puede despejar I. 
-	Por lo tanto, estudio los datos de la Figura \ref{t_berger} para encontrar una relación que me permita conseguir la longitud del dato original a partir del codificado.
+	Por lo tanto, estudio los datos de la Figura\ref{t_berger} para encontrar una relación que me permita conseguir la longitud del dato original a partir del codificado.
 	
-	\begin{figure}
-		\begin{tabular}{| l | c | r |}
+	\begin{figure}[h!]
+		\centering
+		\begin{tabular}{| c | c | c |}
 				\hline
 				Dato original & Añadido & Total \\ \hline
 				\rowcolor{LightCyan}
@@ -120,11 +153,8 @@
 	\end{figure}
 	Como se ve en la tabla, cuando el dato original tiene como longitud $2^i - 1$ se añade un nuevo bit a la codificación. Por lo tanto, se cumple que el $ 2^{Anhadido} <= Total < 2^{Anhadido+1}$, y sólo hay que calcular la potencia de dos a la que corresponde el Total para hallar el número de bits del dato original.
 
-%\section{Problemas}
-%	\input{./problemas}
+\section{Comparación de los códigos}
+	En resumen, los códigos Berger son muy cómodos de usar, por la facilidad de codificación y decodificación. Los que usan checksum, sin embargo, tienen que realizar la suma de todos los elementos y enviarla a mayores, por lo que puede resultar más costoso. Sin embargo, cuando se transmiten datos en grandes bloques, la técnica del checksum funciona bien, ya que suma por bloques y no individualmente.
 
-%\clearpage
-%\section{Conclusiones}
-%	\input{./conclusiones}
-
+	Por último, y un factor muy importante en sistemas críticos, el código checksum otorga mayor cobertura que el Berger, por lo que dependiendo de lo que busque nuestro sistema, será más adecuado uno u otro. Si necesitamos alta cobertura usaremos checksum, a pesar de la latencia, sin embargo, si es importante la rapidez del sistema y no se necesita tanta cobertura, nos convendrá un código Berger.
 \end{document}

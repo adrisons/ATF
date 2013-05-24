@@ -22,14 +22,24 @@ def codify(a):
 	code = '0' * (num_bits - len(num_ones_bin))
 	code += num_ones_bin
 	code = complementary(code)
+	"""
+	print ' |Codify:'+' '*27+'|'
+	print ' |  bits_ori: ' + str(a)+' '*(22 - len(str(a)))+'|'
+	print ' |  bits_cod: ' + str(a+code)+' '*(22 - len(str(a+code)))+'|'
+	"""
 	return a+code
 
 def decodify(a):
 	num_bits_code = len(a)
-	added_bits = int(math.floor(math.log(num_bits_code,2)))
+	added_bits = int(math.ceil(math.log(num_bits_code,2)))
 	num_bits_orig = num_bits_code - added_bits
 
-	bits_orig = a[:num_bits_orig-1]
+	bits_orig = a[:num_bits_orig]
+	
+	print ' |Decodify:'+' '*25+'|'
+	print ' |  bits_cod: ' + str(a)+' '*(22 - len(str(a)))+'|'
+	print ' |  bits_dec: ' + str(bits_orig)+' '*(22 - len(str(bits_orig)))+'|'
+
 	check_code = codify(bits_orig)
 	return ((check_code == a), bits_orig)
 

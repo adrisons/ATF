@@ -3,8 +3,8 @@ from menu import sel_code
 from menu import csv_to_matrix
 from menu import the_end
 
-emisor = 'Emisor.csv'
-receptor = 'Receptor.csv'
+emisor = 'em_ber.csv'
+receptor = 'rec_ber.csv'
 
 print_header()
 checker = sel_code()

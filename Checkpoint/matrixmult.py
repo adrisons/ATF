@@ -56,6 +56,7 @@ def create_cp(max_col):
 	restoring = False
 	# If the checkPoint exists, the program was not finished when it failed
 	if(os.path.isfile(actual_path + f_cp_n)):
+		start = time.time()		
 		auxF_cp = open(f_cp_n, 'r')
 		lines = auxF_cp.read().strip().split('\n')
 		if(len(lines) > 2):
@@ -72,6 +73,8 @@ def create_cp(max_col):
 				col = cp_col
 				f_res = open(f_res_n, 'a')
 				f_cp = open(f_cp_n, 'a')
+		end = time.time()
+		print 't_restauracion=', end-start
 	if not restoring:
 		f_res = open(f_res_n, 'w')		
 		f_cp = open(f_cp_n, 'w')
@@ -92,8 +95,8 @@ def save_checkpoint(row, col):
 
 def save_res(data, row, col, max_col):
 	save_checkpoint(row,col)
-	print 'Guardado CP'
-	time.sleep(2)
+#	print 'Guardado CP'
+#	time.sleep(2)
 	f_res = open(f_res_n, 'a')
 	d = str(data) + ','
 	f_res.write(d)
@@ -134,9 +137,14 @@ def matrixmult_cp (A, B):
 	return C
 
 
+
 def matrixmult():
 	global a_name
 	global b_name
 	(A, a_name) = sel_matrix()
 	(B, b_name) = sel_matrix()
+	start = time.time()
 	Sol = matrixmult_cp(A,B)
+	end = time.time()
+	print 't_ej=', end-start
+

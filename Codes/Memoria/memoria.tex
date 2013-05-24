@@ -91,7 +91,7 @@
 \section{Berger}
 redundancia que introduce el código y cobertura del mismo ante diferente tipo de errores
 
-	La redundancia que añade Berger se vuelve insignificante cuando tratamos con cadenas de datos largas (véase Figura~\ref{t_berger}), sin embargo, para cadenas cortas inserta demasiada. Además es un código separable, lo que hace muy sencilla su decodificación.
+	La redundancia que añade Berger se vuelve insignificante cuando tratamos con cadenas de datos largas (véase Figura \ref{t_berger}), sin embargo, para cadenas cortas inserta demasiada. Además es un código separable, lo que hace muy sencilla su decodificación.
 	Lo que se hace para comprobar que la transmisión es correcta es realizar la suma y ver que está bien. Al tratarse de datos binarios, puede darse el caso en el que cambien dos datos y la suma siga dando lo mismo, por lo tanto no se detectaría el fallo. Se muestra un ejemplo en la Figura~\ref{ej_berger}.
 	\begin{figure}[h!]
 		\centering
@@ -113,7 +113,7 @@ redundancia que introduce el código y cobertura del mismo ante diferente tipo d
 	Fallan dos bits pero, como la suma da lo mismo, no se detectaría el fallo.
 	\subsection{\emph{Una vez codificado, ¿cuántos bits tiene el código original?}}
 	Sabemos que el número de bits que añade Berger es $k = [log_2(I+1)]$ siendo k la longitud de bits añadidos e I la longitud del dato original no codificado. Sin embargo, al decodificar, sabemos que el código codificado tiene longitud $I + k$, es decir, $I + log_2(I+1)$ y, de esta fórmula no se puede despejar I. 
-	Por lo tanto, estudio los datos de la Figura\ref{t_berger} para encontrar una relación que me permita conseguir la longitud del dato original a partir del codificado.
+	Por lo tanto, estudio los datos de la Figura \ref{t_berger} para encontrar una relación que me permita conseguir la longitud del dato original a partir del codificado.
 	
 	\begin{figure}[h!]
 		\centering
@@ -122,28 +122,30 @@ redundancia que introduce el código y cobertura del mismo ante diferente tipo d
 				Dato original & Añadido & Total \\ \hline
 				\rowcolor{LightCyan}
 				1 & 1 & 2 \\ \hline
-				2 & 1 & 3 \\ \hline
 				\rowcolor{LightCyan}
+				2 & 2 & 3 \\ \hline
 				3 & 2 & 5 \\ \hline
-				4 & 2 & 6 \\ \hline
-				... & 2 & ... \\ \hline
 				\rowcolor{LightCyan}
-				7 & 3 & 10 \\ \hline
-				8 & 3 & 11 \\ \hline
-				9 & 3 & 12 \\ \hline
+				4 & 3 & 6 \\ \hline
 				... & 3 & ... \\ \hline
+				7 & 3 & 10 \\ \hline
 				\rowcolor{LightCyan}
+				8 & 4 & 11 \\ \hline
+				9 & 4 & 12 \\ \hline
+				... & 4 & ... \\ \hline
 				15 & 4 & 19 \\ \hline
-				16 & 4 & 20 \\ \hline
-				... & 4 &  \\ \hline
 				\rowcolor{LightCyan}
+				16 & 5 & 20 \\ \hline
+				... & 5 &  \\ \hline
 				31 & 5 & 36 \\ \hline
-				... & 5 & ... \\ \hline
 				\rowcolor{LightCyan}
-				63 & 6 & 69 \\ \hline
 				... & 6 & ... \\ \hline
+				63 & 6 & 69 \\ \hline
 				\rowcolor{LightCyan}
-				127 & 7 & 134 \\ \hline
+				64 & 7 & 71 \\ \hline
+				... & 7 & ... \\ \hline
+				\rowcolor{LightCyan}
+				128 & 8 & 134 \\ \hline
 				... & ... & ... \\ 
 				\hline
 		\end{tabular}
@@ -151,7 +153,7 @@ redundancia que introduce el código y cobertura del mismo ante diferente tipo d
 		\label{t_berger}
 		\caption{Tabla de código Berger}
 	\end{figure}
-	Como se ve en la tabla, cuando el dato original tiene como longitud $2^i - 1$ se añade un nuevo bit a la codificación. Por lo tanto, se cumple que el $ 2^{Anhadido} <= Total < 2^{Anhadido+1}$, y sólo hay que calcular la potencia de dos a la que corresponde el Total para hallar el número de bits del dato original.
+	Como se ve en la tabla, cuando el dato original tiene como longitud $2^i$ se añade un nuevo bit a la codificación. Por lo tanto, sólo hay que calcular la potencia de dos a la que corresponde el Total para hallar el número de bits del dato original.
 
 \section{Comparación de los códigos}
 	En resumen, los códigos Berger son muy cómodos de usar, por la facilidad de codificación y decodificación. Los que usan checksum, sin embargo, tienen que realizar la suma de todos los elementos y enviarla a mayores, por lo que puede resultar más costoso. Sin embargo, cuando se transmiten datos en grandes bloques, la técnica del checksum funciona bien, ya que suma por bloques y no individualmente.

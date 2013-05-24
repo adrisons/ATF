@@ -80,6 +80,35 @@
 %\section{Problemas}
 	\input{./problemas}
 
+\begin{figure}[h!]
+  %\centering
+  \includegraphics[width=1.2\textwidth]{res/comparacion_cp}
+  \label{comp_cp}
+  \caption{Comparación tiempos secuencial sin/con checksum sin fallo}
+\end{figure}
+
+Como vemos en la figura \ref{comp_cp}, al tener que almacenar la información de checksum empeoran los tiempos de ejecución.
+
+Cuando hay un fallo y el programa tiene que cargar los datos a partir del checksum generado previamente, la carga realizada también tiene una repercusión sobre el tiempo de ejecución. Esto quiere decir que, si este coste es muy alto, en algunos casos será conveniente comenzar de cero en vez de reconfigurar el sistema.
+
+
+En nuestro caso en particular, por la propia definición de la estructura de los ficheros \texttt{checkopoint} y \texttt{result}, sólo es necesaria la última fila de éstos para la reconfiguración, y los nombres de los ficheros de matrices para el checkpoint, que son las dos primeras filas; por lo que no se trata con grandes volúmenes de datos. Debería ser muy efectiva la reconfiguración y ser conveniente en la mayoría de los casos. En los casos que puede ser menos conveniente realizar la reconfiguración es en los que se han procesado pocos datos, por lo tanto es más eficiente calcular esos datos que reestaurar el sistema.
+
+
+Esta teoría se prueba ejecutando el programa con matrices de $25*25$. Son matrices relativamente pequeñas y, en las pruebas realizadas, se ha ido parando el programa en diferentes puntos, calculando el tiempo de recuperación.
+
+
+El coste de reconfigurar el sistema es del orden de $3 * 10^{-4}$.
+En la implementación final del sistema, se decide guardar en el fichero de checkpoint, no sólo el último estado, si no todos los estados guardados. Para detectar fallos en caso de error. Con esta modificación, el fichero de checkpoint se hace más grande resultando en variaciones en el tiempo de recuperación, como se muestra en la figura \ref{tiempos_rec}
+
+\begin{figure}[h!]
+  %\centering
+  \includegraphics[width=1.2\textwidth]{res/tiempos_rec}
+  \label{tiempos_rec}
+  \caption{Tiempos de recuperación con fichero checksum con histórico}
+\end{figure}
+Pero lo importante es que, si guardamos los últimos estados del sistema (no todos), el rendimiento es bueno (tiempos de recuperación del orden de $3 * 10^{-4}$).
+
 %\clearpage
 %\section{Conclusiones}
 %	\input{./conclusiones}
